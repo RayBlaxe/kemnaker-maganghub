@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kemnaker - Lowongan Magang Aktif",
+  title: "MagangHub Finder - Lowongan Magang Lengkap untuk Fresh Graduate",
   description: "Portal lowongan maganghub dari Wong Bekasi untuk Magang Hub KEMNAKER dengan filter peluang dan analisis lengkap",
   keywords: ["magang", "lowongan", "kemnaker", "internship", "indonesia"],
 };
