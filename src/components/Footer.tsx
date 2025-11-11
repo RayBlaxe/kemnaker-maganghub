@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Github, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
@@ -5,11 +6,21 @@ export default function Footer() {
     <footer className="bg-primary-950 text-white mt-12 border-t-4 border-primary-600">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* About */}
+          {/* About with Logo */}
           <div>
-            <h3 className="font-bold text-lg mb-3">Kemnaker Magang Hub</h3>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="relative w-10 h-10 flex-shrink-0">
+                <Image
+                  src="/icon1.png"
+                  alt="Kemnaker Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="font-bold text-lg">Kemnaker Magang Hub</h3>
+            </div>
             <p className="text-blue-200 text-sm">
-              Platform pencarian lowongan magang dari Mahasiswa dari PCR anak TIE.
+              Platform pencarian lowongan magang dari Kementerian Ketenagakerjaan Republik Indonesia.
             </p>
           </div>
 
