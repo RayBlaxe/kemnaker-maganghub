@@ -24,11 +24,11 @@ export default function Navigation() {
               />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl sm:text-2xl font-bold leading-tight">Kemnaker Magang Hub</h1>
+              <h1 className="text-xl sm:text-2xl font-bold leading-tight">MagangHub Finder</h1>
               <p className="text-blue-200 text-xs sm:text-sm">Lowongan Magang Indonesia</p>
             </div>
             <div className="sm:hidden">
-              <h1 className="text-lg font-bold">Kemnaker</h1>
+              <h1 className="text-lg font-bold">MagangHub Finder</h1>
             </div>
           </Link>
 

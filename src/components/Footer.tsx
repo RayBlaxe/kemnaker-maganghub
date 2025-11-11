@@ -17,7 +17,7 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <h3 className="font-bold text-lg">Kemnaker Magang Hub</h3>
+              <h3 className="font-bold text-lg">MagangHub Finder</h3>
             </div>
             <p className="text-blue-200 text-sm">
               Platform pencarian lowongan magang dari Kementerian Ketenagakerjaan Republik Indonesia.
