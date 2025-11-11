@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-3">Kemnaker Magang Hub</h3>
             <p className="text-blue-200 text-sm">
-              Platform pencarian lowongan magang dari Kementerian Ketenagakerjaan Republik Indonesia.
+              Platform pencarian lowongan magang dari Mahasiswa dari PCR anak TIE.
             </p>
           </div>
 
@@ -55,14 +55,14 @@ export default function Footer() {
               <span>@rayblaxe</span>
             </a>
             <p className="text-blue-200 text-sm mt-3">
-              Built with Next.js & shadcn/ui
+              Built from Bekasi with ❤️
             </p>
           </div>
         </div>
 
         {/* Copyright */}
         <div className="border-t border-primary-800 mt-8 pt-6 text-center text-sm text-blue-200">
-          <p>&copy; 2025 Kemnaker Magang Hub. Data dari Magang Hub Kementerian Ketenagakerjaan RI</p>
+          <p>&copy; 2025 RayBlaxe. Data dari Magang Hub Kementerian Ketenagakerjaan RI</p>
         </div>
       </div>
     </footer>

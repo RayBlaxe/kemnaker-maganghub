@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Kemnaker - Lowongan Magang Aktif",
-  description: "Portal lowongan magang dari Magang Hub Kemnaker dengan filter peluang dan analisis lengkap",
+  description: "Portal lowongan maganghub dari Wong Bekasi untuk Magang Hub KEMNAKER dengan filter peluang dan analisis lengkap",
   keywords: ["magang", "lowongan", "kemnaker", "internship", "indonesia"],
 };
 
