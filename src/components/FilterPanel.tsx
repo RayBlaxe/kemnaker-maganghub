@@ -5,13 +5,11 @@ import { VacancyFilters, Province } from '@/types';
 import { fetchProvinces } from '@/lib/api';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Filter, X } from 'lucide-react';
+import { Search, Filter, X, RotateCcw } from 'lucide-react';
 
 interface FilterPanelProps {
   filters: VacancyFilters;
   onFilterChange: (filters: VacancyFilters) => void;
-  searchTerm: string;
-  onSearchChange: (value: string) => void;
   totalCount: number;
   totalInSystem: number;
 }
@@ -19,13 +17,12 @@ interface FilterPanelProps {
 export default function FilterPanel({
   filters,
   onFilterChange,
-  searchTerm,
-  onSearchChange,
   totalCount,
   totalInSystem,
 }: FilterPanelProps) {
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [localFilters, setLocalFilters] = useState(filters);
+  const [searchInput, setSearchInput] = useState(filters.keyword || '');
   const [isLoadingProvinces, setIsLoadingProvinces] = useState(true);
 
   useEffect(() => {
@@ -35,8 +32,25 @@ export default function FilterPanel({
     });
   }, []);
 
+  // Sync local filters with parent filters
+  useEffect(() => {
+    setLocalFilters(filters);
+    setSearchInput(filters.keyword || '');
+  }, [filters]);
+
   const handleApply = () => {
-    onFilterChange(localFilters);
+    // Apply all filters including search
+    const updatedFilters = {
+      ...localFilters,
+      keyword: searchInput.trim(),
+    };
+    onFilterChange(updatedFilters);
+  };
+
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleApply();
+    }
   };
 
   const handleReset = () => {
@@ -49,30 +63,53 @@ export default function FilterPanel({
       opportunityRatio: '',
     };
     setLocalFilters(resetFilters);
+    setSearchInput('');
     onFilterChange(resetFilters);
-    onSearchChange('');
+  };
+
+  const handleClearSearch = () => {
+    setSearchInput('');
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-8 space-y-6">
       {/* Search Box */}
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-        <Input
-          type="text"
-          placeholder="Cari posisi, perusahaan, atau lokasi... (contoh: programmer)"
-          value={searchTerm}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10 pr-10 h-12 text-base"
-        />
-        {searchTerm && (
-          <button
-            onClick={() => onSearchChange('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700">
+          Cari Lowongan
+        </label>
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Cari posisi, perusahaan, atau lokasi... (contoh: programmer)"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyPress={handleSearchKeyPress}
+              className="pl-10 pr-10 h-12 text-base"
+            />
+            {searchInput && (
+              <button
+                onClick={handleClearSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+          <Button
+            onClick={handleApply}
+            className="h-12 px-6"
+            title="Klik atau tekan Enter untuk mencari"
           >
-            <X className="h-5 w-5" />
-          </button>
-        )}
+            <Search className="h-4 w-4 mr-2" />
+            Cari
+          </Button>
+        </div>
+        <p className="text-xs text-gray-500">
+          💡 Tekan <kbd className="px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs">Enter</kbd> atau klik tombol "Cari" untuk menerapkan pencarian
+        </p>
       </div>
 
       {/* Filters Grid */}
@@ -155,7 +192,7 @@ export default function FilterPanel({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         <Button
           onClick={handleApply}
           className="flex-1 sm:flex-none"
@@ -168,14 +205,24 @@ export default function FilterPanel({
           variant="outline"
           className="flex-1 sm:flex-none"
         >
-          <X className="h-4 w-4 mr-2" />
-          Reset
+          <RotateCcw className="h-4 w-4 mr-2" />
+          Reset Semua
         </Button>
       </div>
 
       {/* Total Count */}
       <div className="text-gray-600 text-sm border-t pt-4">
         Menampilkan <span className="font-semibold text-primary-600">{totalCount.toLocaleString('id-ID')}</span> dari <span className="font-semibold">{totalInSystem.toLocaleString('id-ID')}</span> lowongan
+        {filters.keyword && (
+          <span className="ml-2">
+            • Pencarian: <span className="font-semibold text-primary-600">"{filters.keyword}"</span>
+          </span>
+        )}
+        {filters.kode_provinsi && (
+          <span className="ml-2">
+            • Provinsi: <span className="font-semibold text-primary-600">{provinces.find(p => p.code === filters.kode_provinsi)?.name}</span>
+          </span>
+        )}
       </div>
     </div>
   );

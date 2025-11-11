@@ -6,7 +6,6 @@ import FilterPanel from '@/components/FilterPanel';
 import Pagination from '@/components/Pagination';
 import { Vacancy, VacancyFilters, PaginationMeta } from '@/types';
 import { fetchVacancies } from '@/lib/api';
-import { useDebounce } from '@/hooks/useDebounce';
 import { Loader2 } from 'lucide-react';
 
 export default function Home() {
@@ -16,10 +15,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [meta, setMeta] = useState<PaginationMeta | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  // Debounce search term to avoid too many API calls
-  const debouncedSearchTerm = useDebounce(searchTerm, 600);
 
   const [filters, setFilters] = useState<VacancyFilters>({
     kode_provinsi: '',
@@ -29,14 +24,6 @@ export default function Home() {
     limit: 20,
     opportunityRatio: '',
   });
-
-  // Trigger fetch when debounced search changes
-  useEffect(() => {
-    if (debouncedSearchTerm !== filters.keyword) {
-      setFilters(prev => ({ ...prev, keyword: debouncedSearchTerm }));
-      setCurrentPage(1);
-    }
-  }, [debouncedSearchTerm]);
 
   useEffect(() => {
     loadVacancies();
@@ -95,10 +82,6 @@ export default function Home() {
     setFilteredVacancies(filtered);
   };
 
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-  };
-
   const handleFilterChange = (newFilters: VacancyFilters) => {
     setFilters(newFilters);
     setCurrentPage(1);
@@ -111,20 +94,9 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          Lowongan Magang Aktif
-        </h1>
-        <p className="text-lg text-gray-600">
-          Data dari Magang Hub Kemnaker
-        </p>
-      </header>
-
       <FilterPanel
         filters={filters}
         onFilterChange={handleFilterChange}
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
         totalCount={filteredVacancies.length}
         totalInSystem={meta?.total || 0}
       />
@@ -153,7 +125,7 @@ export default function Home() {
           {filteredVacancies.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-gray-500 text-lg mb-2">Tidak ada lowongan yang ditemukan.</p>
-              {(searchTerm || filters.kode_provinsi || filters.opportunityRatio) && (
+              {(filters.keyword || filters.kode_provinsi || filters.opportunityRatio) && (
                 <p className="text-gray-400 text-sm">Coba ubah filter atau kata kunci pencarian Anda.</p>
               )}
             </div>
