@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: var(--font-geist-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar for tags on mobile but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ensure no horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Ensure container doesn't overflow */
+.container {
+  max-width: 100%;
+}
+
 @layer base {
   :root {
     --foreground-rgb: 0, 0, 0;
