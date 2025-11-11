@@ -4,8 +4,9 @@ import { Github, ExternalLink } from 'lucide-react';
 export default function Footer() {
   return (
     <footer className="bg-primary-950 text-white mt-12 border-t-4 border-primary-600">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-screen-2xl mx-auto">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About with Logo */}
           <div>
             <div className="flex items-center gap-3 mb-3">
@@ -20,7 +21,7 @@ export default function Footer() {
               <h3 className="font-bold text-lg">MagangHub Finder</h3>
             </div>
             <p className="text-blue-200 text-sm">
-              Platform pencarian lowongan magang dari Kementerian Ketenagakerjaan Republik Indonesia.
+              Platform pencarian lowongan maganghub KEMNAKER.
             </p>
           </div>
 
@@ -76,6 +77,7 @@ export default function Footer() {
           <p>&copy; 2025 RayBlaxe. Data dari Magang Hub Kementerian Ketenagakerjaan RI</p>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   );
 }

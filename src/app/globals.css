@@ -29,6 +29,28 @@ html, body {
   max-width: 100%;
 }
 
+/* Custom max-width for large screens */
+@media (min-width: 1536px) {
+  /* 2xl breakpoint - for 2K and larger monitors */
+  .max-w-screen-2xl {
+    max-width: 1536px; /* Constrains content width */
+  }
+}
+
+@media (min-width: 1920px) {
+  /* For Full HD and larger */
+  .max-w-screen-2xl {
+    max-width: 1600px; /* More comfortable reading width */
+  }
+}
+
+@media (min-width: 2560px) {
+  /* For 2K monitors and above */
+  .max-w-screen-2xl {
+    max-width: 1800px; /* Prevent content from being too wide */
+  }
+}
+
 @layer base {
   :root {
     --foreground-rgb: 0, 0, 0;

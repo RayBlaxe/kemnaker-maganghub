@@ -93,7 +93,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-6 sm:py-8">
       <FilterPanel
         filters={filters}
         onFilterChange={handleFilterChange}
@@ -130,7 +130,7 @@ export default function Home() {
               )}
             </div>
           ) : (
-            <div className="grid gap-6 mb-8">
+            <div className="grid gap-4 sm:gap-5 lg:gap-6 mb-8">
               {filteredVacancies.map((vacancy) => (
                 <VacancyCard key={vacancy.id_posisi} vacancy={vacancy} />
               ))}
